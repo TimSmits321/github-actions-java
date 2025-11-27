@@ -3,13 +3,13 @@ name: CI Pipeline
 on:
   push:
     branches: [ main, develop ]
-    pull_request:
-      branches: [ main ]
-  
-  jobs:
-    lint:
-      runs-on: ubuntu-latest
-      steps:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v4
 
       - name: Set up JDK 17
@@ -23,10 +23,10 @@ on:
           ./mvnw checkstyle:check
           ./mvnw spotbugs:check
 
-    maven:
-      runs-on: ubuntu-latest
-      needs: lint
-      steps:
+  maven:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
       - uses: actions/checkout@v4
 
       - name: Set up JDK 17
